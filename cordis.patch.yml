@@ -1,0 +1,6 @@
+# dsh-sessions-board bundle patch.
+# Mounts the host half, which registers one read-only JSON route with the
+# Sessions board of every workspace known to this DSH home.
+- insert:
+    - id: sessions-board
+      name: dsh-sessions-board

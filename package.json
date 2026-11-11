@@ -1,0 +1,31 @@
+{
+  "name": "dsh-sessions-board",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Sessions board for the Web UI: reads each workspace's SESSIONS.md and shows who is working on what, across every workspace of this DSH home.",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./board": "./lib/board.js",
+    "./client": "./client/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-layout"
+      ]
+    }
+  },
+  "files": [
+    "lib",
+    "client",
+    "cordis.patch.yml"
+  ]
+}
