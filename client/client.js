@@ -81,6 +81,22 @@ window.__ModuleLoader__.load({
             (row || []).map((cell, cellIndex) => h('td', { key: keyPrefix + 'c' + cellIndex, style: cellStyle }, plain(cell)))))))
     }
 
+    const listStyle = { margin: '0 0 10px', paddingLeft: 22, fontSize: 13, lineHeight: 1.55, color: color.secondary }
+
+    function List({ block, keyPrefix }) {
+      const items = (block.items || []).map((item, index) => h('li', { key: keyPrefix + 'i' + index, style: { marginBottom: 4 } }, plain(item)))
+      return h(block.ordered ? 'ol' : 'ul', { style: listStyle }, items)
+    }
+
+    function Blocks({ blocks, keyPrefix }) {
+      return (blocks || []).map((block, blockIndex) => {
+        const key = keyPrefix + '_b' + blockIndex
+        if (block.kind === 'table') return h(Table, { key, block, keyPrefix: key + '_' })
+        if (block.kind === 'list') return h(List, { key, block, keyPrefix: key + '_' })
+        return h('p', { key, style: textStyle }, plain(block.text))
+      })
+    }
+
     function Workspace({ workspace, index }) {
       const board = workspace.board
       return h('section', { style: cardStyle },
@@ -93,10 +109,8 @@ window.__ModuleLoader__.load({
             + (board ? ' · ' + board.relativePath : ' · aucun fichier d\'état'))),
         board
           ? board.sections.map((section, sectionIndex) => h('div', { key: 'sec' + index + '_' + sectionIndex },
-              section.title ? h('h3', { style: sectionTitleStyle }, section.title) : null,
-              (section.blocks || []).map((block, blockIndex) => block.kind === 'table'
-                ? h(Table, { key: 't' + index + '_' + sectionIndex + '_' + blockIndex, block, keyPrefix: 't' + index + '_' + sectionIndex + '_' + blockIndex + '_' })
-                : h('p', { key: 'p' + index + '_' + sectionIndex + '_' + blockIndex, style: textStyle }, plain(block.text)))))
+              section.title && section.level !== 1 ? h('h3', { style: sectionTitleStyle }, section.title) : null,
+              h(Blocks, { blocks: section.blocks, keyPrefix: 's' + index + '_' + sectionIndex })))
           : h('p', { style: textStyle }, 'Cherché : ' + (workspace.tried || []).join(', ')),
         board && board.truncated ? h('p', { style: { ...textStyle, color: color.error } }, 'Fichier tronqué à la lecture.') : null)
     }
