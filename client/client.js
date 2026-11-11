@@ -105,6 +105,7 @@ window.__ModuleLoader__.load({
           h('p', { style: metaStyle }, workspace.cwd),
           h('p', { style: { ...metaStyle, marginTop: 4 } },
             workspace.sessionCount + (workspace.sessionCount > 1 ? ' sessions' : ' session')
+            + (workspace.subagentCount ? ' · ' + workspace.subagentCount + (workspace.subagentCount > 1 ? ' sous-agents' : ' sous-agent') : '')
             + ' · dernière écriture ' + formatWhen(workspace.lastAt)
             + (board ? ' · ' + board.relativePath : ' · aucun fichier d\'état'))),
         board
