@@ -30,14 +30,20 @@ Un modèle prêt à copier : [`SESSIONS.template.md`](./SESSIONS.template.md).
 
 ## Installation
 
-Déjà installé dans le profil `web` (lien vers ce dossier). Pour un autre profil :
-
 ```bash
-dsh plugin --profile <profil> add ~/.dsh/plugins/dsh-sessions-board
+git clone https://github.com/dexterIshere/dsh-sessions-board.git
+dsh plugin --profile web add "$PWD/dsh-sessions-board"
 ```
 
 Un **redémarrage de DSH** est nécessaire : c'est une modification de profil, pas
 une page à rafraîchir.
+
+Pour retirer le panneau : supprimer `dsh-sessions-board` des `dependencies` et des
+`bundles` de `~/.dsh/profiles/<profil>/package.json`, puis relancer.
+
+## Licence
+
+MIT — voir [LICENSE](./LICENSE).
 
 ## Ce qu'il ne fait pas
 

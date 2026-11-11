@@ -2,6 +2,7 @@
   "name": "dsh-sessions-board",
   "version": "1.0.0",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "description": "Sessions board for the Web UI: reads each workspace's SESSIONS.md and shows who is working on what, across every workspace of this DSH home.",
   "repository": {
